@@ -41,7 +41,7 @@ class Manager {
         let logger = Logger(minLogLevel: Configuration.shared.minLogLevel)
 
         adapters = [
-            LitecoinAdapter(words: words, purpose: .bip44, testMode: configuration.testNet, syncMode: syncMode, logger: logger),
+            DogecoinAdapter(words: words, purpose: .bip44, testMode: configuration.testNet, syncMode: syncMode, logger: logger),
         ]
 
         adapterSubject.send()
@@ -78,6 +78,6 @@ class Manager {
     }
 
     private func clearKits() {
-        LitecoinAdapter.clear()
+        DogecoinAdapter.clear()
     }
 }

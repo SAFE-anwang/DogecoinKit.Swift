@@ -23,7 +23,7 @@ public class Kit: AbstractKit {
         return Data(bytes ?? [])
     }
 
-    private static let name = "LitecoinKit"
+    private static let name = "DogecoinKit"
 
     public enum NetworkType: String, CaseIterable {
         case mainNet, testNet
@@ -71,7 +71,7 @@ public class Kit: AbstractKit {
             apiTransactionProvider = BCoinApi(url: "", logger: logger)
         }
 
-        let paymentAddressParser = PaymentAddressParser(validScheme: "litecoin", removeScheme: true)
+        let paymentAddressParser = PaymentAddressParser(validScheme: "dogecoin", removeScheme: true)
         let difficultyEncoder = DifficultyEncoder()
 
         let blockValidatorSet = BlockValidatorSet()
@@ -79,24 +79,24 @@ public class Kit: AbstractKit {
         blockValidatorSet.add(blockValidator: ProofOfWorkValidator(hasher: hasher, difficultyEncoder: difficultyEncoder))
 
         let blockValidatorChain = BlockValidatorChain()
-        let blockHelper = BlockValidatorHelper(storage: storage)
+//        let blockHelper = BlockValidatorHelper(storage: storage)
 
-        let difficultyAdjustmentValidator = LegacyDifficultyAdjustmentValidator(
-            encoder: difficultyEncoder,
-            blockValidatorHelper: blockHelper,
-            heightInterval: Kit.heightInterval,
-            targetTimespan: Kit.heightInterval * Kit.targetSpacing,
-            maxTargetBits: Kit.maxTargetBits
-        )
-
-        switch networkType {
-        case .mainNet:
-            blockValidatorChain.add(blockValidator: difficultyAdjustmentValidator)
-            blockValidatorChain.add(blockValidator: BitsValidator())
-        case .testNet:
-            blockValidatorChain.add(blockValidator: difficultyAdjustmentValidator)
-            blockValidatorChain.add(blockValidator: LegacyTestNetDifficultyValidator(blockHelper: blockHelper, heightInterval: Kit.heightInterval, targetSpacing: Kit.targetSpacing, maxTargetBits: Kit.maxTargetBits))
-        }
+//        let difficultyAdjustmentValidator = LegacyDifficultyAdjustmentValidator(
+//                encoder: difficultyEncoder,
+//                blockValidatorHelper: blockHelper,
+//                heightInterval: Kit.heightInterval,
+//                targetTimespan: Kit.heightInterval * Kit.targetSpacing,
+//                maxTargetBits: Kit.maxTargetBits
+//        )
+//
+//        switch networkType {
+//        case .mainNet:
+//            blockValidatorChain.add(blockValidator: difficultyAdjustmentValidator)
+//            blockValidatorChain.add(blockValidator: BitsValidator())
+//        case .testNet:
+//            blockValidatorChain.add(blockValidator: difficultyAdjustmentValidator)
+//            blockValidatorChain.add(blockValidator: LegacyTestNetDifficultyValidator(blockHelper: blockHelper, heightInterval: Kit.heightInterval, targetSpacing: Kit.targetSpacing, maxTargetBits: Kit.maxTargetBits))
+//        }
 
         blockValidatorSet.add(blockValidator: blockValidatorChain)
 

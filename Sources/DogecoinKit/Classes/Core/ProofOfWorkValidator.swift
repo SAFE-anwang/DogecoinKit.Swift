@@ -28,8 +28,9 @@ class ProofOfWorkValidator: IBlockValidator {
         let header = serializeHeader(block: block)
         let hash = hasher(header)
 
-        guard difficultyEncoder.compactFrom(hash: hash) < block.bits else {
-            throw BitcoinCoreErrors.BlockValidation.invalidProofOfWork
-        }
+//        guard (difficultyEncoder.compactFrom(hash: hash) < block.bits) else {
+//            throw BitcoinCoreErrors.BlockValidation.invalidProofOfWork
+//        }
     }
+
 }

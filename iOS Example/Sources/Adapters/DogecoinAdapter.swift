@@ -1,10 +1,10 @@
 import BitcoinCore
 import HdWalletKit
 import HsToolKit
-import LitecoinKit
+import DogecoinKit
 
-class LitecoinAdapter: BaseAdapter {
-    let litecoinKit: Kit
+class DogecoinAdapter: BaseAdapter {
+    let dogecoinKit: Kit
 
     init(words: [String], purpose: Purpose, testMode: Bool, syncMode: BitcoinCore.SyncMode, logger: Logger) {
         let networkType: Kit.NetworkType = testMode ? .testNet : .mainNet
@@ -12,10 +12,10 @@ class LitecoinAdapter: BaseAdapter {
             fatalError("Can't Create Seed")
         }
 
-        litecoinKit = try! Kit(seed: seed, purpose: purpose, walletId: "walletId", syncMode: syncMode, hasher: nil, networkType: networkType, confirmationsThreshold: 1, logger: logger.scoped(with: "LitecoinKit"))
+        dogecoinKit = try! Kit(seed: seed, purpose: purpose, walletId: "walletId", syncMode: syncMode, hasher: nil, networkType: networkType, confirmationsThreshold: 1, logger: logger.scoped(with: "DogecoinKit"))
 
-        super.init(name: "Litecoin", coinCode: "LTC", abstractKit: litecoinKit)
-        litecoinKit.delegate = self
+        super.init(name: "Dogecoin", coinCode: "DOGE", abstractKit: dogecoinKit)
+        dogecoinKit.delegate = self
     }
 
     class func clear() {
@@ -23,7 +23,7 @@ class LitecoinAdapter: BaseAdapter {
     }
 }
 
-extension LitecoinAdapter: BitcoinCoreDelegate {
+extension DogecoinAdapter: BitcoinCoreDelegate {
     func transactionsUpdated(inserted _: [TransactionInfo], updated _: [TransactionInfo]) {
         transactionsSubject.send()
     }
